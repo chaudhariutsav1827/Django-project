@@ -1,0 +1,82 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!--  contact -->
+      <div class="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Edit Product</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-10 offset-md-1">
+                  {% if msg %}
+                   <center><font size='6'><b style="color=white ;">{{msg}} </b></font></center>
+                  {% endif %}
+                  <form id="request" class="main_form" method="post" action="{% url 'seller_edit_product' pk=product.pk %}" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     <div class="row">
+                        <div class="col-md-12 ">
+                           <select  class="contactus" name="product_category" >
+                             <option style="color: black;" >---Select Category---</option>
+                             {% if product.product_category == 'COMPUTER' %}
+                             <option value="Computer" style="color: black;" selected>Computer</option>
+                             <option value="Laptop" style="color: black;">Laptop</option>
+                             <option value="Accesories" style="color: black;">Accesories</option>
+                             {% elif product.product_category == 'LAPTOP' %}
+                             <option value="Computer" style="color: black;">Computer</option>
+                             <option value="Laptop" style="color: black;" selected>Laptop</option>
+                             <option value="Accesories" style="color: black;">Accesories</option>
+                             {% elif product.product_category == 'ACCESORIES' %}
+                             <option value="Computer" style="color: black;">Computer</option>
+                             <option value="Laptop" style="color: black;">Laptop</option>
+                             <option value="Accesories" style="color: black;"selected>Accesories</option>
+                             {% else %}
+                             <option style="color: black;" >---Select Category---</option>
+                             <option value="Computer" style="color: black;">Computer</option>
+                             <option value="Laptop" style="color: black;">Laptop</option>
+                             <option value="Accesories" style="color: black;">Accesories</option>
+                             {% endif %}
+                             
+                           </select>
+                        </div>
+                        <div class="col-md-12 ">
+                           <input class="contactus" placeholder="Product Name" value="{{product.product_name}}" name="product_name"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Product Price" value="{{product.product_price}}" name="product_price"> 
+                        </div>
+                        <div class="col-md-12">
+                           <textarea class="textarea" placeholder="Product Description" name="product_desc">{{product.product_desc}}</textarea>
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Product Discount" value="{{product.product_discount}}" name="product_discount">                          
+                        </div>
+                         <div class="col-md-12">
+                          <img src="{{product.product_image.url}}" height="150px" width="150px"><br><br>
+                           <div class="form-group">
+                            <label  style=" color: white; font-size: 20px ; ">Product Image</label>
+                            <input type="file" class="form-control-file" id="product_image" style=" color: white; font-size: 15px; ">
+                           </div>
+                        <div class="col-md-12">
+                           <button class="send_btn">Update Product</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end contact -->
+      </body>
+</html>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+     <!-- three_box -->
+      <div class="three_box">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'product_by_category' pc='COMPUTER' %}">
+                        <i><img src="{% static 'images/thr.png' %}" alt="#"/></i>
+                        <h3>Computer</h3>
+                       
+                     </a>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'product_by_category' pc='LAPTOP' %}">
+                        <i><img src="{% static 'images/thr1.png' %}" alt="#"/></i>
+                        <h3>Laptop</h3>
+                        
+                     </a>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="box_text">
+                     <a href="{% url 'product_by_category' pc='ACCESORIES' %}">
+                        <i><img src="{% static 'images/thr2.png' %}" alt="#"/></i>
+                        <h3>ACCESORIES</h3>
+                        
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <br><br><br><br>
+      <!-- three_box -->
+   </body>
+</html>
+{% endblock %}

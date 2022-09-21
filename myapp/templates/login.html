@@ -1,0 +1,75 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!--  login -->
+      <div class="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Login</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-10 offset-md-1">
+                  {% if msg %}
+                  <center><font size='6'><b style="color:white;">{{msg}} </b></font></center>
+                  {% endif %}
+                  <form id="request" class="main_form" method="post" action="{% url 'login' %}">
+                     {% csrf_token %}
+                     <div class="row">
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Email" name="email" id="email">
+                           <span id='email_error'style=" font-size:20px; color: olive; " ></span> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Password" type="password" name="password">                          
+                        </div>
+                        <div class="col-md-6" style=" margin-left: 50px; ">
+                           <button class="send_btn">Login</button>
+                        </div>
+                        <div class="col-md-6" style=" margin-left: -100px; ">
+                           <button class="send_btn"><a href="{% url 'forgot_password' %}" style="color: white;">Forgot Password</a></button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end login -->
+      </body>
+</html>
+      <script >
+         $ ("#email").change(function(){
+               var email=$(this).val();
+
+               $.ajax({
+                  url:'/ajax/validate_email/',
+               
+                  data: {
+                  'email': email
+                  },
+               dataType:'json',              
+               success: function (data) {
+                  if (!data.is_taken) {
+                     document.getElementById ("email").style.border="3px solid orange";
+                     document.getElementById("email_error").innerHTML="This Email Id Not Registered";
+                  
+                  }else{
+                     document.getElementById ("email").style.border="3px solid cyan";
+                     document.getElementById ("email_error").innerHTML="";
+                  }
+               }
+            });
+         });
+      
+      </script>
+{% endblock %}

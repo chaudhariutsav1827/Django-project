@@ -1,0 +1,72 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+     <div  class="products">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                  {% if carts %}
+                     <h2>My Cart</h2>
+                  {% else %}
+                     <h2>No Product In Cart</h2>
+                  {% endif %}
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="our_products">
+                     <div class="row">
+                        {% for i in carts %}
+                        <div class="col-md-4 margin_bottom1">
+                           <a href="{% url 'product_details' pk=i.product.pk %}">
+                              <div class="product_box">
+                                 <figure><img src="{{i.product.product_image.url}}" style=" height: 250px; width: 300px; " alt="#"/></figure>
+                           </a>   
+
+                                 <h3>{{i.product.product_category}}</h3>
+                                 <h3>{{i.product_price}}</h3><br>
+                                 <form method="post" name="product_qty" action="{% url 'change_qty' pk=i.pk %}">
+                                    {% csrf_token %}
+                                    <label for="usr" style=" font-size: 20px; color: black; ">Product QTY:</label>
+                                    <input type="number" class="contactus" id="usr" name="product_qty" value="{{i.product_qty}}" max="10" min="1" style=" width: 70px; align-items: center; border-color: skyblue; " onchange="this.form.submit()">
+                                 </form>
+                                 <h3>{{i.total_price}}</h3>   
+                                 <br><br><br><br>
+
+                           </div>
+                           
+                        </div >
+                        <div class="col-md-12">
+                                 <h1 style=" text-align: center; ">Net Price : {{net_price}} Rs.</h1>
+                                 <form method="post" action="{% url 'pay' %}">
+                                    {% csrf_token %}
+                                    <center>
+                                    <input type="hidden" name="amount" value="{{net_price}}">
+                                    <input type="submit" value="Proceed To Pay" name="submit" class="btn btn-outline-success" style=" height: 50px; width: 205px; font-size: 20px;" >
+                                    </center>
+                                 </form>
+                        </div>
+                        {% endfor %}
+                        {% if request.session.cart_count > 6 %}
+                        <div class="col-md-12">
+                           <a class="read_more" href="#">See More</a>
+                        </div>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end products -->
+   </body>
+</html>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+   </head>
+   <!-- body -->
+   <body>
+      <!-- products -->
+      <div  class="products">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Product Details</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="our_products">
+                     <div class="row">
+                        <div class="col-md-6 margin_bottom1">
+                           <div class="product_box">
+                              <figure><img src="{{product.product_image.url}}" style=" height: 300px; width: 300px; " alt="#"/></figure><br><br>
+                                 <a href="{% url 'seller_edit_product' pk=product.pk%}"><button type="button" class="btn btn-outline-primary btn-lg">Edit</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <a href="{% url 'seller_delet_product' pk=product.pk%}"><button type="button" class="btn btn-outline-warning btn-lg">Delete</button></a><br><br>
+                           </div>
+                        </div>
+                        <div class="col-md-6 margin_bottom1">
+                              <div class="product_box">
+                                 <h3>{{product.product_category}}</h3>   
+                                 <h3>{{product.product_name}}</h3>
+                                 <h3>{{product.product_price}}</h3>
+                                 <h3>{{product.product_desc}}</h3>
+                                 <h3>Discount : {{product.product_discount}}%</h3>
+                              </div>   
+                        </div>   
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end products -->
+   </body>
+</html>
+{% endblock %}
